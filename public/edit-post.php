@@ -1,29 +1,23 @@
 <?php
-require '../includes/database.php';
+require '../classes/Database.php';
+require '../classes/Post.php';
 require '../includes/posts.php';
 require '../includes/url.php';
 require '../includes/auth.php';
 
 session_start();
 
-if (! isLoggedIn()){
+if (!isLoggedIn()) {
     redirect('/login.php');
 }
 
-$conn = getDB();
+$db = new Database();
+$conn = $db->getConnMySQL();
 
 if (isset($_GET['id'])) {
+    $post = Post::getPostByID($conn, $_GET['id']);
 
-    $post = getPost($conn, $_GET['id']);
-
-    if ($post) {
-
-        $id = $post['id'];
-        $title = $post['title'];
-        $content = $post['content'];
-        $published_at = $post['published_at'];
-
-    } else {
+    if (!$post) {
         die('No post found');
     }
 } else {
@@ -32,11 +26,11 @@ if (isset($_GET['id'])) {
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-    $title = $_POST['title'];
-    $content = $_POST['content'];
-    $published_at = $_POST['published_at'];
+    $post->title = $_POST['title'];
+    $post->content = $_POST['content'];
+    $post->published_at = $_POST['published_at'];
 
-    $errors = validatePost($title, $content, $published_at);
+    $errors = validatePost($post->title, $post->content, $post->published_at);
 
     if (empty($errors)) {
         $sql = "UPDATE post 
@@ -65,7 +59,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             if (mysqli_stmt_execute($stmt)) {
 
                 redirect("/post.php?id=$id");
-
             } else {
                 echo mysqli_stmt_error($stmt);
             }
@@ -77,6 +70,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <h2>Edit Post</h2>
 <?php require '../includes/post-form.php'; ?>
 <br>
-<p><a href="post.php?id=<?php echo $id; ?>">Cancel</a></p>
+<p><a href="post.php?id=<?php echo $post->id; ?>">Cancel</a></p>
 <div><a href="index.php">Home</a></div>
 <?php require "../includes/footer.php"; ?>

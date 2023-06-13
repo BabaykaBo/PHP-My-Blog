@@ -3,31 +3,26 @@
 /**
  * Get the post record based in ID
  * 
- * @param mysqli $conn Connection to the DB
+ * @param $conn Connection to the DB
  * @param int $id the post ID
  * @param array $columns Optional list of columns for the select, defaults to *
  * 
  * @return mixed An associative array containing the post or null, if not found
  */
-function getPost(mysqli $conn, int $id, array $columns = ['*'])
+function getPost( $conn, int $id, array $columns = ['*'])
 {   
     $col = implode(", ", $columns);
     $sql = "SELECT $col
         FROM post
-        WHERE id = ?";
+        WHERE id = :id";
 
-    $stmt = mysqli_prepare($conn, $sql);
+    $stmt = $conn->prepare($sql);
 
-    if (mysqli_error($conn) === false) {
-        echo mysqli_error($conn);
-    } else {
-        mysqli_stmt_bind_param($stmt, "i", $id);
+    $stmt->bindValue(':id', $id, PDO::PARAM_INT);
 
-        if (mysqli_stmt_execute($stmt)) {
-            $result = mysqli_stmt_get_result($stmt);
-            return mysqli_fetch_array($result, MYSQLI_ASSOC);
+    if ($stmt->execute()) {
+        return $stmt->fetch(PDO::FETCH_ASSOC);
         }
-    }
 }
 
 /**

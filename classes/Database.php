@@ -10,7 +10,7 @@ class Database
     /**
      * Get the DB connection
      * 
-     * @return PDO object Connection to the database server
+     * @return object Connection to the database server
      */
     public function getConnMySQL(): PDO{
         require '../db_connect.php';
@@ -22,7 +22,12 @@ class Database
 
         $dsn = "mysql:host=$db_host;dbname=$db_name;charset=utf8";
 
-        return new PDO($dsn, $db_user, $db_pass);
+        try{
+            return new PDO($dsn, $db_user, $db_pass);
+        } catch (PDOException $e) {
+            echo "Server connection error!";
+        }
+        
     }
     
 }

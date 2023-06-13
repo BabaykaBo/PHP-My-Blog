@@ -1,23 +1,14 @@
 <?php
-require '../includes/database.php';
 require '../includes/auth.php';
+require '../classes/Database.php';
+require '../classes/Post.php';
 
 session_start();
 
-$conn = getDB();
+$db = new Database();
+$conn = $db->getConnMySQL();
 
-$sql = "SELECT *
-        FROM post
-        ORDER BY published_at;";
-
-$result = mysqli_query($conn, $sql);
-
-if ($result === false) {
-    echo mysqli_error($conn);
-    exit;
-} else {
-    $posts = mysqli_fetch_all($result, MYSQLI_ASSOC);
-}
+$posts = Post::getAll($conn);
 ?>
 
 <?php require '../includes/header.php'; ?>
