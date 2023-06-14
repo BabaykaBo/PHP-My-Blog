@@ -3,3 +3,4 @@ db_connect.php
 docs/
 .vscode/
 .phpdoc/
+/vendor/

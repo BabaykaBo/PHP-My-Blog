@@ -1,7 +1,6 @@
 <?php
 require '../classes/Database.php';
 require '../classes/Post.php';
-require '../includes/posts.php';
 require '../includes/url.php';
 require '../includes/auth.php';
 
@@ -30,39 +29,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $post->content = $_POST['content'];
     $post->published_at = $_POST['published_at'];
 
-    $errors = validatePost($post->title, $post->content, $post->published_at);
+    if ($post->update($conn)) {
 
-    if (empty($errors)) {
-        $sql = "UPDATE post 
-                SET title = ?,
-                 content = ?, 
-                 published_at =?
-                WHERE id = ? ";
+        redirect("/post.php?id={$post->id}");
 
-        $stmt = mysqli_prepare($conn, $sql);
-
-        if ($stmt === false) {
-            echo mysqli_error($conn);
-        } else {
-            if ($published_at == '') {
-                $published_at = null;
-            }
-            mysqli_stmt_bind_param(
-                $stmt,
-                "sssi",
-                $title,
-                $content,
-                $published_at,
-                $id,
-            );
-
-            if (mysqli_stmt_execute($stmt)) {
-
-                redirect("/post.php?id=$id");
-            } else {
-                echo mysqli_stmt_error($stmt);
-            }
-        }
     }
 }
 ?>

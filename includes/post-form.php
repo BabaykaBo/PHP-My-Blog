@@ -1,6 +1,6 @@
-<?php if (!empty($errors)) : ?>
+<?php if (!empty($post->errors)) : ?>
 <ul>
-    <?php foreach ($errors as $error) : ?>
+    <?php foreach ($post->errors as $error) : ?>
     <li><?php echo $error; ?></li>
     <?php endforeach; ?>
 </ul>

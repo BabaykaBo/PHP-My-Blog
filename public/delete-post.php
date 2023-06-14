@@ -1,25 +1,23 @@
 <?php
-require '../includes/database.php';
-require '../includes/posts.php';
+require '../classes/Database.php';
+require '../classes/Post.php';
 require '../includes/url.php';
 require '../includes/auth.php';
 
 session_start();
 
-if (! isLoggedIn()){
+if (!isLoggedIn()) {
     redirect('/login.php');
 }
 
-$conn = getDB();
+$db = new Database();
+$conn = $db->getConnMySQL();
 
 if (isset($_GET['id'])) {
 
-    $post = getPost($conn, $_GET['id'], ['id', 'title']);
+    $post = Post::getPostByID($conn, $_GET['id']);
 
-    if ($post) {
-        $id = $post['id'];
-        $title = $post['title'];
-    } else {
+    if (!$post) {
         die('No post found');
     }
 } else {
@@ -27,37 +25,23 @@ if (isset($_GET['id'])) {
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $sql = "DELETE FROM post 
-        WHERE id = ? ";
 
-    $stmt = mysqli_prepare($conn, $sql);
 
-    if ($stmt === false) {
-        echo mysqli_error($conn);
-    } else {
-        mysqli_stmt_bind_param(
-            $stmt,
-            "i",
-            $id,
-        );
+    if ($post->delete($conn)) {
 
-        if (mysqli_stmt_execute($stmt)) {
-
-            redirect("/index.php");
-        } else {
-            echo mysqli_stmt_error($stmt);
-        }
+        redirect("/index.php");
+        
     }
 }
 ?>
 
 <?php require '../includes/header.php'; ?>
 <h2>Delete Post</h2>
-<p>Do you want to delete the post "<?php echo $title; ?>"?</p>
+<p>Do you want to delete the post "<?php echo $post->title; ?>"?</p>
 <p>
 <form method="post">
     <button>Yes</button>
 </form>
 </p>
-<p><a href="post.php?id=<?php echo $id; ?>">Cancel</a></p>
+<p><a href="post.php?id=<?php echo $post->id; ?>">Cancel</a></p>
 <?php require '../includes/footer.php' ?>
