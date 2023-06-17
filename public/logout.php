@@ -1,7 +1,5 @@
 <?php
-session_start();
-
-require '../classes/Url.php';
+require '../includes/init.php';
 
 $_SESSION = array();
 

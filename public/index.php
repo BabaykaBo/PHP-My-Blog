@@ -1,9 +1,5 @@
 <?php
-require '../classes/Auth.php';
-require '../classes/Database.php';
-require '../classes/Post.php';
-
-session_start();
+require '../includes/init.php';
 
 $db = new Database();
 $conn = $db->getConnMySQL();
