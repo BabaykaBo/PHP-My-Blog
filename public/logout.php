@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-require '../includes/url.php';
+require '../classes/Url.php';
 
 $_SESSION = array();
 
@@ -19,4 +19,4 @@ if (ini_get("session.use_cookies")) {
 }
 session_destroy();
 
-redirect('/');
+Url::redirect('/');

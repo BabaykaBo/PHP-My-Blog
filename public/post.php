@@ -1,7 +1,7 @@
 <?php
 require '../classes/Database.php';
 require '../classes/Post.php';
-require '../includes/auth.php';
+require '../classes/Auth.php';
 
 session_start();
 
@@ -25,7 +25,7 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
         <p><?php echo $post->content; ?></p>
     </li>
 </ul>
-<?php if (isLoggedIn()):?>
+<?php if (Auth::isLoggedIn()):?>
 <p><a href="edit-post.php?id=<?php echo  $post->id ?>">Edit Post</a></p>
 <p><a href="delete-post.php?id=<?php echo  $post->id ?>">Delete Post</a></p>
 <?php endif; ?>

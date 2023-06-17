@@ -1,5 +1,5 @@
 <?php
-require '../includes/auth.php';
+require '../classes/Auth.php';
 require '../classes/Database.php';
 require '../classes/Post.php';
 
@@ -12,7 +12,7 @@ $posts = Post::getAll($conn);
 ?>
 
 <?php require '../includes/header.php'; ?>
-<?php if (isLoggedIn()): ?>
+<?php if (Auth::isLoggedIn()): ?>
 <p>You are logged in. <a href="logout.php">Log Out</a></p>
 <?php else: ?>
 <p>You are not logged in. <a href="login.php">Log In</a></p>

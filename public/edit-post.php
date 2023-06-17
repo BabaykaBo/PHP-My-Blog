@@ -1,13 +1,13 @@
 <?php
 require '../classes/Database.php';
 require '../classes/Post.php';
-require '../includes/url.php';
-require '../includes/auth.php';
+require '../classes/Url.php';
+require '../classes/Auth.php';
 
 session_start();
 
-if (!isLoggedIn()) {
-    redirect('/login.php');
+if (!Auth::isLoggedIn()) {
+    Url::redirect('/login.php');
 }
 
 $db = new Database();
@@ -31,7 +31,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if ($post->update($conn)) {
 
-        redirect("/post.php?id={$post->id}");
+        Url::redirect("/post.php?id={$post->id}");
 
     }
 }
