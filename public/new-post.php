@@ -9,8 +9,7 @@ $post = new Post();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-    $db = new Database();
-    $conn = $db->getConnMySQL();
+    $conn = require '../includes/db.php';
     
     $post->title = $_POST['title'];
     $post->content = $_POST['content'];

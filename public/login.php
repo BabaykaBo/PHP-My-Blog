@@ -6,8 +6,8 @@ $user->username = '';
 $errors = false;
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $db = new Database();
-    $conn = $db->getConnMySQL();
+    
+    $conn = require '../includes/db.php';
 
     $user->username = $_POST['username'];
 

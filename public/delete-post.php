@@ -5,8 +5,8 @@ if (!Auth::isLoggedIn()) {
     Url::redirect('/login.php');
 }
 
-$db = new Database();
-$conn = $db->getConnMySQL();
+
+$conn = require '../includes/db.php';
 
 if (isset($_GET['id'])) {
 

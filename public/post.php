@@ -1,8 +1,7 @@
 <?php
 require '../includes/init.php';
 
-$db = new Database();
-$conn = $db->getConnMySQL();
+$conn = require '../includes/db.php';
 
 if (isset($_GET['id']) && is_numeric($_GET['id'])) {
     $post = Post::getPostByID($conn, $_GET['id']);

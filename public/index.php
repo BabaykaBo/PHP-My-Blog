@@ -1,8 +1,7 @@
 <?php
 require '../includes/init.php';
 
-$db = new Database();
-$conn = $db->getConnMySQL();
+$conn = require '../includes/db.php';
 
 $posts = Post::getAll($conn);
 ?>
