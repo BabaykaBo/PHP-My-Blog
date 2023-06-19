@@ -1,9 +1,9 @@
 <?php
-require '../includes/init.php';
+require '../../includes/init.php';
 
-require '../includes/login-require.php';
+require '../../includes/login-require.php';
 
-$conn = require '../includes/db.php';
+$conn = require '../../includes/db.php';
 
 if (isset($_GET['id'])) {
 
@@ -21,12 +21,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if ($post->delete($conn)) {
 
-        Url::redirect("/index.php");
+        Url::redirect("/admin/index.php");
     }
 }
 ?>
 
-<?php require '../includes/header.php'; ?>
+<?php require '../../includes/header.php'; ?>
 <h2>Delete Post</h2>
 <p>Do you want to delete the post "<?php echo $post->title; ?>"?</p>
 <p>
@@ -35,4 +35,4 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </form>
 </p>
 <p><a href="post.php?id=<?php echo $post->id; ?>">Cancel</a></p>
-<?php require '../includes/footer.php' ?>
+<?php require '../../includes/footer.php' ?>

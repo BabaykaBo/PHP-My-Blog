@@ -13,7 +13,7 @@ class Database
      * @return object Connection to the database server
      */
     public function getConnMySQL(): PDO {
-        require '../db_connect.php';
+        require dirname(__DIR__).'/db_connect.php';
 
         $db_host = $host;
         $db_name = $name;

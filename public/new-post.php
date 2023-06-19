@@ -21,8 +21,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 ?>
 <?php require "../includes/header.php"; ?>
+
 <h2>New Post</h2>
+
 <?php require '../includes/post-form.php'; ?>
+
 <br>
+
 <div><a href="index.php">Home</a></div>
+
 <?php require "../includes/footer.php"; ?>

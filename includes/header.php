@@ -12,5 +12,21 @@
 <body>
     <header>
         <h1>My Blog</h1>
+        
+        <ul>
+                <li><a href="/index.php">Home</a></li>
+            <?php if (Auth::isLoggedIn()): ?>
+
+                <li><a href="/admin/">Admin</a></li>
+                <li><a href="new-post.php">Add Post</a></li>
+                <li><a href="/logout.php">Log Out</a></li>
+
+            <?php else: ?>
+
+                <li><a href="/login.php">Log In</a></li>
+                
+            <?php endif; ?>
+        </ul>
+
     </header>
     <main>

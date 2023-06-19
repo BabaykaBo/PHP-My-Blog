@@ -1,9 +1,9 @@
 <?php
-require '../includes/init.php';
+require '../../includes/init.php';
 
-require '../includes/login-require.php';
+require '../../includes/login-require.php';
 
-$conn = require '../includes/db.php';
+$conn = require '../../includes/db.php';
 
 if (isset($_GET['id'])) {
     $post = Post::getPostByID($conn, $_GET['id']);
@@ -23,18 +23,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if ($post->update($conn)) {
 
-        Url::redirect("/post.php?id={$post->id}");
+        Url::redirect("/admin/post.php?id={$post->id}");
     }
 }
 ?>
-<?php require "../includes/header.php"; ?>
+<?php require "../../includes/header.php"; ?>
 <h2>Edit Post</h2>
-<?php require '../includes/post-form.php'; ?>
+<?php require '../../includes/post-form.php'; ?>
 
 <br>
 
 <p><a href="post.php?id=<?php echo $post->id; ?>">Cancel</a></p>
 
-<div><a href="index.php">Home</a></div>
+<div><a href="/admin/">Admin</a></div>
 
-<?php require "../includes/footer.php"; ?>
+<?php require "../../includes/footer.php"; ?>

@@ -1,7 +1,7 @@
 <?php
-require '../includes/init.php';
+require '../../includes/init.php';
 
-$conn = require '../includes/db.php';
+$conn = require '../../includes/db.php';
 
 if (isset($_GET['id']) && is_numeric($_GET['id'])) {
     $post = Post::getPostByID($conn, $_GET['id']);
@@ -9,7 +9,7 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
     $post = false;
 }
 ?>
-<?php require '../includes/header.php'; ?>
+<?php require '../../includes/header.php'; ?>
 
 <?php if ($post === false) : ?>
 <p>No posts found.</p>
@@ -29,6 +29,6 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
 
 <?php endif; ?>
 
-<p><a href="index.php">Home</a></p>
+<p><a href="/admin/">Admin</a></p>
 
-<?php require '../includes/footer.php'; ?>
+<?php require '../../includes/footer.php'; ?>
