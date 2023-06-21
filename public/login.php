@@ -35,6 +35,4 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <button>Submit</button>
 </form>
 
-<p><a href="index.php">Cancel</a></p>
-
 <?php require '../includes/footer.php' ?>

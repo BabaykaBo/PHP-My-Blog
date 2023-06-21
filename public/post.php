@@ -24,11 +24,10 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
 
 <?php if (Auth::isLoggedIn()) : ?>
 <p><a href="admin/edit-post.php?id=<?php echo  $post->id ?>">Edit Post</a></p>
+<p><a href="admin/edit-post-image.php?id=<?php echo  $post->id ?>">Edit Post Image</a></p>
 <p><a href="admin/delete-post.php?id=<?php echo  $post->id ?>">Delete Post</a></p>
 <?php endif; ?>
 
 <?php endif; ?>
-
-<p><a href="index.php">Home</a></p>
 
 <?php require '../includes/footer.php'; ?>

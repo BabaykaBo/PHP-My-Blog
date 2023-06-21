@@ -35,6 +35,4 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <p><a href="post.php?id=<?php echo $post->id; ?>">Cancel</a></p>
 
-<div><a href="/admin/">Admin</a></div>
-
 <?php require "../../includes/footer.php"; ?>

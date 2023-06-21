@@ -28,6 +28,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <br>
 
-<div><a href="/admin/">Admin</a></div>
+<div><a href="/admin/">Cancel</a></div>
 
 <?php require "../../includes/footer.php"; ?>
