@@ -227,4 +227,16 @@ class Post
             return false;
         }
     }
+
+    /**
+     * Get count of the total number of records
+     * 
+     * @param object $conn Connection to DB
+     * 
+     * @return int The total number of records
+     */
+    public static function getTotal(object $conn): int
+    {
+        return $conn->query('SELECT COUNT(*) FROM post;')->fetchColumn();
+    }
 }

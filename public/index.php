@@ -3,7 +3,7 @@ require '../includes/init.php';
 
 $conn = require '../includes/db.php';
 
-$paginator = new Paginator($_GET['page'] ?? 1, 4);
+$paginator = new Paginator($_GET['page'] ?? 1, 4, Post::getTotal($conn));
 
 $posts = Post::getPage($conn, $paginator->limited, $paginator->offset);
 ?>
@@ -11,22 +11,24 @@ $posts = Post::getPage($conn, $paginator->limited, $paginator->offset);
 <?php require '../includes/header.php'; ?>
 
 <?php if (empty($posts)) : ?>
-<p>No posts found.</p>
+    <p>No posts found.</p>
 <?php else : ?>
 
-<ul>
-    <?php foreach ($posts as $post) : ?>
-    <li>
-        <h2><a href="post.php?id=<?php echo $post['id']; ?>"><?php echo htmlspecialchars($post['title']); ?></a></h2>
-        <p>
-            <?php
+    <ul>
+        <?php foreach ($posts as $post) : ?>
+            <li>
+                <h2><a href="post.php?id=<?php echo $post['id']; ?>"><?php echo htmlspecialchars($post['title']); ?></a></h2>
+                <p>
+                    <?php
                     $content = substr($post['content'], 0, 100) . '...';
                     echo htmlspecialchars($content);
                     ?>
-        </p>
-    </li>
-    <?php endforeach; ?>
-</ul>
+                </p>
+            </li>
+        <?php endforeach; ?>
+    </ul>
+
+    <?php require '../includes/pagination.php'; ?>
 
 <?php endif; ?>
 
