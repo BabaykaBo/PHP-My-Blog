@@ -48,7 +48,7 @@ class Post
     {
         $sql = "SELECT *
         FROM post
-        ORDER BY published_at;";
+        ORDER BY published_at DESC;";
 
         $result = $conn->query($sql);
 
@@ -57,6 +57,32 @@ class Post
         } else {
             return $result->fetchAll(PDO::FETCH_ASSOC);
         }
+    }
+
+    /**
+     * Get posts for single page
+     * 
+     * @param object $conn Connection to DB
+     * @param int $limited parameter for SQL LIMIT
+     * @param int $offset parameter for SQL OFFSET
+     * 
+     * @return array An associative array of posts records
+     */
+    public static function getPage(object $conn, int $limited, int $offset): array
+    {
+        $sql = "SELECT *
+        FROM post
+        ORDER BY published_at DESC
+        LIMIT :limited
+        OFFSET :offset;";
+
+        $stmt = $conn->prepare($sql);
+        $stmt->bindValue(':limited', $limited, PDO::PARAM_INT);
+        $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
+
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
     /**

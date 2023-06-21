@@ -23,8 +23,8 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
 </ul>
 
 <?php if (Auth::isLoggedIn()) : ?>
-<p><a href="edit-post.php?id=<?php echo  $post->id ?>">Edit Post</a></p>
-<p><a href="delete-post.php?id=<?php echo  $post->id ?>">Delete Post</a></p>
+<p><a href="admin/edit-post.php?id=<?php echo  $post->id ?>">Edit Post</a></p>
+<p><a href="admin/delete-post.php?id=<?php echo  $post->id ?>">Delete Post</a></p>
 <?php endif; ?>
 
 <?php endif; ?>
