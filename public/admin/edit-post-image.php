@@ -31,12 +31,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             case UPLOAD_ERR_NO_FILE:
                 throw new Exception('No file uploaded!');
                 break;
-            
-                case UPLOAD_ERR_INI_SIZE:
+
+            case UPLOAD_ERR_INI_SIZE:
                 throw new Exception('Too big file size!');
                 break;
-            
-                default:
+
+            default:
                 throw new Exception('An error ocurred!');
         }
 
@@ -45,11 +45,30 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $finfo = finfo_open(FILEINFO_MIME_TYPE);
         $mime_type = finfo_file($finfo, $_FILES['file']['tmp_name']);
 
-        if ( ! in_array($mime_type, $mime_types)){
+        if (!in_array($mime_type, $mime_types)) {
             throw new Exception('Invalid file type!');
         }
 
-        finfo_close($finfo);
+        $pathinfo = pathinfo($_FILES['file']['name']);
+        
+        $base = $pathinfo['filename'];
+        $base = preg_replace('/[^a-zA-Z0-9-_]/', '_', $base);
+
+        $destination = '../../uploads/' . $base . '.' . $pathinfo['extension'];
+
+        $i =1;
+
+        while (file_exists($destination)) {
+
+            $destination = '../../uploads/' . $base . "-$i." . $pathinfo['extension']; 
+            $i++;
+        }
+
+        if (move_uploaded_file($_FILES['file']['tmp_name'], $destination)) {
+            echo 'File uploaded succeed!';
+        } else {
+            throw new Exception('Unable to move uploaded file!');
+        }
 
     } catch (Exception $e) {
         echo $e->getMessage();
