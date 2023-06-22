@@ -38,6 +38,12 @@ class Post
     public array $errors = [];
 
     /**
+     * Name of image
+     * @var ?string
+     */
+    public ?string $image_file;
+
+    /**
      * Get all posts
      * 
      * @param object $conn Connection to DB
@@ -92,9 +98,9 @@ class Post
      * @param int $id the post ID
      * @param array $columns Optional list of columns for the select, defaults to *
      * 
-     * @return mixed An object of  the post or null, if not found
+     * @return mixed An object of  the post or false, if not found
      */
-    public static function getPostByID(object $conn, int $id, array $columns = ['*'])
+    public static function getPostByID(object $conn, int $id, array $columns = ['*']): mixed
     {
         $col = implode(", ", $columns);
         $sql = "SELECT $col
@@ -139,8 +145,11 @@ class Post
             }
 
             return $stmt->execute();
+
         } else {
+
             return false;
+            
         }
     }
     /**
@@ -238,5 +247,27 @@ class Post
     public static function getTotal(object $conn): int
     {
         return $conn->query('SELECT COUNT(*) FROM post;')->fetchColumn();
+    }
+
+    /**
+     * Set the image file property
+     * 
+     * @param object $conn Connection to DB
+     * @param string $filename the filename of the image file
+     * 
+     * @return bool True if it was successful, false otherwise
+     */
+    public function setImageFile(object $conn, string $filename): bool
+    {
+        $sql = "UPDATE post
+                SET image_file = :image_file
+                WHERE id = :id;";
+
+        $stmt = $conn->prepare($sql);
+
+        $stmt->bindValue(':image_file', $filename, PDO::PARAM_STR);
+        $stmt->bindValue(':id', $this->id, PDO::PARAM_INT);
+
+        return $stmt->execute();
     }
 }
