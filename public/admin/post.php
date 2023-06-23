@@ -12,21 +12,25 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
 <?php require '../../includes/header.php'; ?>
 
 <?php if ($post === false) : ?>
-<p>No posts found.</p>
+    <p>No posts found.</p>
 <?php else : ?>
+    <ul>
+        <li>
+            <h2><?php echo $post->title; ?></h2>
 
-<ul>
-    <li>
-        <h2><?php echo $post->title; ?></h2>
-        <p><?php echo $post->content; ?></p>
-    </li>
-</ul>
+            <?php if ($post->image_file) : ?>
+                <img src="/uploads/<?php echo $post->image_file; ?>" alt='#'>
+            <?php endif; ?>
 
-<?php if (Auth::isLoggedIn()) : ?>
-<p><a href="edit-post.php?id=<?php echo  $post->id ?>">Edit Post</a></p>
-<p><a href="edit-post-image.php?id=<?php echo  $post->id ?>">Edit Post Image</a></p>
-<p><a href="delete-post.php?id=<?php echo  $post->id ?>">Delete Post</a></p>
-<?php endif; ?>
+            <p><?php echo $post->content; ?></p>
+        </li>
+    </ul>
+
+    <?php if (Auth::isLoggedIn()) : ?>
+        <p><a href="edit-post.php?id=<?php echo  $post->id ?>">Edit Post</a></p>
+        <p><a href="edit-post-image.php?id=<?php echo  $post->id ?>">Edit Post Image</a></p>
+        <p><a href="delete-post.php?id=<?php echo  $post->id ?>">Delete Post</a></p>
+    <?php endif; ?>
 
 <?php endif; ?>
 

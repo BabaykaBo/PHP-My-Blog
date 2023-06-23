@@ -46,54 +46,52 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $mime_type = finfo_file($finfo, $_FILES['file']['tmp_name']);
 
         if (!in_array($mime_type, $mime_types)) {
-            
+
             throw new Exception('Invalid file type!');
-        
         }
 
         $pathinfo = pathinfo($_FILES['file']['name']);
-        
+
         $base = $pathinfo['filename'];
         $base = preg_replace('/[^a-zA-Z0-9-_]/', '_', $base);
         $base = mb_substr($base, 0, 200);
 
         $filename = $base . '.' . $pathinfo['extension'];
 
-        $destination = '../../uploads/' . $filename;
+        $destination = '../uploads/' . $filename;
 
-        $i =1;
+        $i = 1;
 
         while (file_exists($destination)) {
 
             $filename = $base . "-$i." . $pathinfo['extension'];
-            $destination = '../../uploads/' . $filename; 
+            $destination = '../uploads/' . $filename;
             $i++;
         }
 
         if (move_uploaded_file($_FILES['file']['tmp_name'], $destination)) {
-            
-            if ($post->setImageFile($conn, $filename)){
-                
+
+            if ($post->setImageFile($conn, $filename)) {
+
                 Url::redirect("/admin/post.php?id={$post->id}");
-            
             } else {
-                
+
                 throw new Exception('Unable to save filename!');
-            
             }
-
         } else {
-            
-            throw new Exception('Unable to move uploaded file!');
-        
-        }
 
+            throw new Exception('Unable to move uploaded file!');
+        }
     } catch (Exception $e) {
         echo $e->getMessage();
     }
 }
 ?>
 <?php require "../../includes/header.php"; ?>
+
+<?php if ($post->image_file) : ?>
+    <img src="/uploads/<?php echo $post->image_file; ?>" alt='#'>
+<?php endif; ?>
 
 <h2>Edit Post image</h2>
 
