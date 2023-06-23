@@ -257,7 +257,7 @@ class Post
      * 
      * @return bool True if it was successful, false otherwise
      */
-    public function setImageFile(object $conn, string $filename): bool
+    public function setImageFile(object $conn, string|null $filename): bool
     {
         $sql = "UPDATE post
                 SET image_file = :image_file
@@ -265,7 +265,7 @@ class Post
 
         $stmt = $conn->prepare($sql);
 
-        $stmt->bindValue(':image_file', $filename, PDO::PARAM_STR);
+        $stmt->bindValue(':image_file', $filename, $filename == null ? PDO::PARAM_NULL : PDO::PARAM_STR);
         $stmt->bindValue(':id', $this->id, PDO::PARAM_INT);
 
         return $stmt->execute();

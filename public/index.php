@@ -31,5 +31,4 @@ $posts = Post::getPage($conn, $paginator->limited, $paginator->offset);
     <?php require '../includes/pagination.php'; ?>
 
 <?php endif; ?>
-
 <?php require '../includes/footer.php'; ?>

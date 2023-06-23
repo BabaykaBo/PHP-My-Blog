@@ -58,22 +58,29 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         $filename = $base . '.' . $pathinfo['extension'];
 
-        $destination = '../uploads/' . $filename;
+        $destination = '../uploading/' . $filename;
 
         $i = 1;
 
         while (file_exists($destination)) {
 
             $filename = $base . "-$i." . $pathinfo['extension'];
-            $destination = '../uploads/' . $filename;
+            $destination = '../uploading/' . $filename;
             $i++;
         }
 
         if (move_uploaded_file($_FILES['file']['tmp_name'], $destination)) {
 
+            $previous_image = $post->image_file;
+
             if ($post->setImageFile($conn, $filename)) {
 
+                if ($post->image_file){
+                    unlink("../uploading/$previous_image");
+                }
+
                 Url::redirect("/admin/post.php?id={$post->id}");
+            
             } else {
 
                 throw new Exception('Unable to save filename!');
@@ -90,7 +97,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <?php require "../../includes/header.php"; ?>
 
 <?php if ($post->image_file) : ?>
-    <img src="/uploads/<?php echo $post->image_file; ?>" alt='#'>
+    <?php echo $post->image_file; ?>
+    <img src="/uploading/<?php echo $post->image_file; ?>" alt='#'>
 <?php endif; ?>
 
 <h2>Edit Post image</h2>

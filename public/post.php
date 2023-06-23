@@ -20,7 +20,7 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
             <h2><?php echo $post->title; ?></h2>
 
             <?php if ($post->image_file) : ?>
-                <img src="/uploads/<?php echo $post->image_file; ?>" alt='#'>
+                <img src="/uploading/<?php echo $post->image_file; ?>" alt='#'>
             <?php endif; ?>
 
             <p><?php echo $post->content; ?></p>
