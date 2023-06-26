@@ -15,14 +15,22 @@ if (isset($_GET['id'])) {
     die('ID is not supplied. No post found');
 }
 
+$category_ids = array_column($post->getCategories($conn), 'id');
+$categories = Category::getAll($conn);
+
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $post->title = $_POST['title'];
     $post->content = $_POST['content'];
     $post->published_at = $_POST['published_at'];
 
+    $category_ids = $_POST['category'] ?? [];
+
     if ($post->update($conn)) {
 
+        $post->setCategories($conn, $category_ids);
+        
         Url::redirect("/admin/post.php?id={$post->id}");
     }
 }

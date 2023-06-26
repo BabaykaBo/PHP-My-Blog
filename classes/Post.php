@@ -66,6 +66,54 @@ class Post
     }
 
     /**
+     * Get the post record based in ID
+     * 
+     * @param object $conn Connection to the DB
+     * @param int $id the post ID
+     * 
+     * @return array The post data with category
+     */
+    public static function getWithCategories(object $conn, int $id): array
+    {
+        $sql = "SELECT post.*, category.name AS category_name
+        FROM post
+        LEFT JOIN post_category
+        ON post.id = post_category.post_id
+        LEFT JOIN category
+        ON post_category.category_id = category.id
+        WHERE post.id = :id
+        ORDER BY published_at DESC;";
+
+        $stmt = $conn->prepare($sql);
+        $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    /**
+     * Get the post's categories
+     * 
+     * @param object $conn Connection to the DB
+     * 
+     * @return array The category
+     */
+    public function getCategories($conn): array
+    {
+        $sql = "SELECT category.*
+        FROM category
+        JOIN post_category
+        ON category.id = post_category.category_id
+        WHERE post_id = :id;";
+
+        $stmt = $conn->prepare($sql);
+        $stmt->bindValue(':id', $this->id, PDO::PARAM_INT);
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    /**
      * Get posts for single page
      * 
      * @param object $conn Connection to DB
@@ -145,20 +193,61 @@ class Post
             }
 
             return $stmt->execute();
-
         } else {
 
             return false;
-            
         }
     }
+
+    /**
+     * Set the post categories
+     * 
+     * @param object $conn Connection to DB
+     * @param array $ids Category IDs
+     * 
+     * @return void
+     */
+    public function setCategories(object $conn, array $ids): void
+    {
+        if ($ids) {
+            $sql = "INSERT IGNORE INTO post_category (post_id, category_id)
+            VALUES ($this->id, :category_id);";
+
+            $stmt = $conn->prepare($sql);
+
+            foreach ($ids as $id){
+                $stmt->bindValue(':category_id', $id, PDO::PARAM_INT);
+                $stmt->execute();
+            }
+        }
+            $sql = "DELETE FROM post_category
+                    WHERE post_id = {$this->id} ";
+
+            if ($ids) {
+
+                $placeholders = array_fill(0, count($ids), '?');
+                $placeholders = implode(", ", $placeholders);
+
+                $sql .= "AND category_id NOT IN ($placeholders);";
+            
+            }
+
+            $stmt = $conn->prepare($sql);
+
+            foreach ($ids as $i => $id) {
+                $stmt->bindValue($i+1, $id, PDO::PARAM_INT);
+            }
+
+            $stmt->execute();
+    }
+
     /**
      * Validate post data
      *  
      * @return bool $errors Return array with error messages or empty array
      */
     protected function validatePost(): bool
-    {   
+    {
         $this->errors = [];
 
         if ($this->title == '') {
@@ -227,11 +316,10 @@ class Post
                 $stmt->bindValue(':published_at', $this->published_at, PDO::PARAM_STR);
             }
 
-            if ($stmt->execute()){
+            if ($stmt->execute()) {
                 $this->id = $conn->lastInsertId();
                 return true;
             }
-
         } else {
             return false;
         }

@@ -19,5 +19,19 @@
                 value="<?php echo htmlspecialchars($post->published_at); ?>"
                 placeholder="Example: 2022-12-23 12:12:12"></label>
     </div>
+
+    <fieldset>
+        <legend>Categories</legend>
+
+        <?php foreach ($categories as $category) : ?>
+        <div>
+            <input type="checkbox" id='category<?php echo $category['id'] ?>' name="category[]"
+                value="<?php echo $category['id'] ?>"
+                <?php if (in_array($category['id'], $category_ids)):?>checked<?php endif; ?>>
+            <label for='category<?php echo $category['id'] ?>'><?php echo htmlspecialchars($category['name']) ?></label>
+        </div>
+        <?php endforeach; ?>
+    </fieldset>
+
     <button>Save</button>
 </form>

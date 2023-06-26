@@ -90,7 +90,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             throw new Exception('Unable to move uploaded file!');
         }
     } catch (Exception $e) {
-        echo $e->getMessage();
+       $error =  $e->getMessage();
     }
 }
 ?>
@@ -110,5 +110,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </form>
 
 <p><a href="post.php?id=<?php echo $post->id; ?>">Cancel</a></p>
+
+<?php if (isset($error)):?>
+    <?php echo $error; ?>
+<?php endif; ?>
 
 <?php require "../../includes/footer.php"; ?>
