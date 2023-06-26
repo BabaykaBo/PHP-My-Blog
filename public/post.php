@@ -33,7 +33,7 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
             <?php if ($post[0]['image_file']) : ?>
                 <img src="/uploading/<?php echo $post[0]['image_file']; ?>" alt='#'>
                 <p><a href="admin/delete-post-image.php?id=<?php echo  $_GET['id'] ?>">Delete Post Image</a></p>
-                <?php endif; ?>
+            <?php endif; ?>
 
             <p><?php echo $post[0]['content']; ?></p>
     

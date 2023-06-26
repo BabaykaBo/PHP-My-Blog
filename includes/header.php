@@ -18,7 +18,7 @@
             <?php if (Auth::isLoggedIn()): ?>
 
                 <li><a href="/admin/">Admin</a></li>
-                <li><a href="new-post.php">Add Post</a></li>
+                <li><a href="/admin/new-post.php">Add Post</a></li>
                 <li><a href="/logout.php">Log Out</a></li>
 
             <?php else: ?>
