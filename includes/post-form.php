@@ -5,7 +5,7 @@
     <?php endforeach; ?>
 </ul>
 <?php endif; ?>
-<form action="" method="post">
+<form action="" method="post" id="post-form">
     <div>
         <label>Title: <input type="text" name="title" value="<?php echo htmlspecialchars($post->title); ?>"
                 placeholder="Post title..."></label>

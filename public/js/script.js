@@ -12,3 +12,21 @@ $("a.delete").on("click", function(e){
     }
 
 });
+
+$.validator.addMethod("dateTime", function(value){
+    return (value == "") || ! isNaN(Date.parse(value));
+}, "Must be a valid date and time!");
+
+$("#post-form").validate({
+    rules: {
+        title: {
+            required: true
+        },
+        content: {
+            required: true
+        },
+        published_at: {
+            dateTime: true
+        },
+    }
+})
