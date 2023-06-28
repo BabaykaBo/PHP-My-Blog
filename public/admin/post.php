@@ -33,7 +33,7 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
 
             <?php if ($post[0]['image_file']) : ?>
                 <img src="/uploading/<?php echo $post[0]['image_file']; ?>" alt='#'>
-                <p><a href="delete-post-image.php?id=<?php echo  $_GET['id'] ?>">Delete Post Image</a></p>
+                <p><a class="delete" href="delete-post-image.php?id=<?php echo  $_GET['id'] ?>">Delete Post Image</a></p>
             <?php endif; ?>
 
             <p><?php echo $post[0]['content']; ?></p>
@@ -43,7 +43,7 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
     <?php if (Auth::isLoggedIn()) : ?>
         <p><a href="edit-post.php?id=<?php echo  $_GET['id'] ?>">Edit Post</a></p>
         <p><a href="edit-post-image.php?id=<?php echo  $_GET['id'] ?>">Edit Post Image</a></p>
-        <p><a href="delete-post.php?id=<?php echo  $_GET['id'] ?>">Delete Post</a></p>
+        <p><a class="delete" href="delete-post.php?id=<?php echo  $_GET['id'] ?>">Delete Post</a></p>
     <?php endif; ?>
 
 <?php endif; ?>

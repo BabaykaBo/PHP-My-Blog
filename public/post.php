@@ -14,36 +14,41 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
 <?php if ($post === false) : ?>
     <p>No posts found.</p>
 <?php else : ?>
-    
+
     <article>
-    
-    <?php if ($post[0]['category_name']): ?>
-        
-        <p>
-            Category: 
-            <?php foreach ($post as $p): ?>
-                <?php echo $p['category_name']. ';';?>
-            <?php endforeach;?>
-        </p>
-    
-    <?php endif; ?>
 
-    <h2><?php echo $post[0]['title']; ?></h2>
+        <?php if ($post[0]['category_name']) : ?>
 
-            <?php if ($post[0]['image_file']) : ?>
-                <img src="/uploading/<?php echo $post[0]['image_file']; ?>" alt='#'>
-                <p><a href="admin/delete-post-image.php?id=<?php echo  $_GET['id'] ?>">Delete Post Image</a></p>
+            <p>
+                Category:
+                <?php foreach ($post as $p) : ?>
+                    <?php echo $p['category_name'] . ';'; ?>
+                <?php endforeach; ?>
+            </p>
+
+        <?php endif; ?>
+
+        <h2><?php echo $post[0]['title']; ?></h2>
+
+        <?php if ($post[0]['image_file']) : ?>
+            <img src="/uploading/<?php echo $post[0]['image_file']; ?>" alt='#'>
+            
+            <?php if (Auth::isLoggedIn()) : ?>
+                <p><a class="delete" href="admin/delete-post-image.php?id=<?php echo  $_GET['id'] ?>">Delete Post Image</a></p>
             <?php endif; ?>
+        
+        <?php endif; ?>
 
-            <p><?php echo $post[0]['content']; ?></p>
-    
+        <p><?php echo $post[0]['content']; ?></p>
+
     </article>
 
 
     <?php if (Auth::isLoggedIn()) : ?>
+
         <p><a href="admin/edit-post.php?id=<?php echo  $_GET['id'] ?>">Edit Post</a></p>
         <p><a href="admin/edit-post-image.php?id=<?php echo  $_GET['id'] ?>">Edit Post Image</a></p>
-        <p><a href="admin/delete-post.php?id=<?php echo  $_GET['id'] ?>">Delete Post</a></p>
+        <p><a class="delete" href="admin/delete-post.php?id=<?php echo  $_GET['id'] ?>">Delete Post</a></p>
     <?php endif; ?>
 
 <?php endif; ?>
