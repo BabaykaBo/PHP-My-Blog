@@ -18,6 +18,12 @@ $posts = Post::getPage($conn, $paginator->limited, $paginator->offset, true);
         <?php foreach ($posts as $post) : ?>
             <li>
                 <h2><a href="post.php?id=<?php echo $post['id']; ?>"><?php echo htmlspecialchars($post['title']); ?></a></h2>
+
+                <time datetime="<?php echo $post['published_at']; ?>"><?php
+                 $datetime = new DateTime($post["published_at"]);
+                  echo $datetime->format("j F, Y");
+                 ?></time>
+
                 <p>
                     <?php
                     $content = substr($post['content'], 0, 100) . '...';
