@@ -4,14 +4,14 @@ require '../includes/init.php';
 $conn = require '../includes/db.php';
 
 if (isset($_GET['id']) && is_numeric($_GET['id'])) {
-    $post = Post::getWithCategories($conn, $_GET['id']);
+    $post = Post::getWithCategories($conn, $_GET['id'], true);
 } else {
     $post = false;
 }
 ?>
 <?php require '../includes/header.php'; ?>
 
-<?php if ($post === false) : ?>
+<?php if ($post === false || empty($post)) : ?>
     <p>No posts found.</p>
 <?php else : ?>
 

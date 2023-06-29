@@ -3,9 +3,9 @@ require '../includes/init.php';
 
 $conn = require '../includes/db.php';
 
-$paginator = new Paginator($_GET['page'] ?? 1, 4, Post::getTotal($conn));
+$paginator = new Paginator($_GET['page'] ?? 1, 4, Post::getTotal($conn, true));
 
-$posts = Post::getPage($conn, $paginator->limited, $paginator->offset);
+$posts = Post::getPage($conn, $paginator->limited, $paginator->offset, true);
 ?>
 
 <?php require '../includes/header.php'; ?>

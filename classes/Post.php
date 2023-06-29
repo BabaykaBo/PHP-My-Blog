@@ -70,10 +70,11 @@ class Post
      * 
      * @param object $conn Connection to the DB
      * @param int $id the post ID
+     * @param bool $only_published If true, return only records of published post
      * 
      * @return array The post data with category
      */
-    public static function getWithCategories(object $conn, int $id): array
+    public static function getWithCategories(object $conn, int $id, bool $only_published = false): array
     {
         $sql = "SELECT post.*, category.name AS category_name
         FROM post
@@ -81,8 +82,18 @@ class Post
         ON post.id = post_category.post_id
         LEFT JOIN category
         ON post_category.category_id = category.id
-        WHERE post.id = :id
-        ORDER BY published_at DESC;";
+        WHERE post.id = :id";
+
+        if ($only_published) {
+            
+            $sql .= ' AND post.published_at IS NOT NULL
+                    ORDER BY published_at DESC;';
+        
+        } else {
+
+            $sql .= " ORDER BY published_at DESC;"; 
+
+        }
 
         $stmt = $conn->prepare($sql);
         $stmt->bindValue(':id', $id, PDO::PARAM_INT);
@@ -119,13 +130,17 @@ class Post
      * @param object $conn Connection to DB
      * @param int $limited parameter for SQL LIMIT
      * @param int $offset parameter for SQL OFFSET
+     * @param bool $only_published If true, return only records of published post
      * 
      * @return array An associative array of posts records
      */
-    public static function getPage(object $conn, int $limited, int $offset): array
-    {
+    public static function getPage(object $conn, int $limited, int $offset, bool $only_published = false): array
+    {   
+        $condition = $only_published ? ' WHERE published_at IS NOT NULL' : '';
+
         $sql = "SELECT *
         FROM post
+        $condition
         ORDER BY published_at DESC
         LIMIT :limited
         OFFSET :offset;";
@@ -329,12 +344,15 @@ class Post
      * Get count of the total number of records
      * 
      * @param object $conn Connection to DB
+     * @param bool $only_published If true, return only records of published post
      * 
      * @return int The total number of records
      */
-    public static function getTotal(object $conn): int
-    {
-        return $conn->query('SELECT COUNT(*) FROM post;')->fetchColumn();
+    public static function getTotal(object $conn, bool $only_published = false): int
+    {   
+        $condition = $only_published ? ' WHERE published_at IS NOT NULL' : '';
+
+        return $conn->query("SELECT COUNT(*) FROM post$condition;")->fetchColumn();
     }
 
     /**
