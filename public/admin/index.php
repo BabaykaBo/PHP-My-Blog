@@ -16,14 +16,14 @@ $posts = Post::getPage($conn, $paginator->limited, $paginator->offset);
     <p>No posts found.</p>
 <?php else : ?>
     <table class="table table-striped">
-        <thead >
-            <th class="text-center" scope="col">Title</th>
+        <thead>
+            <th scope="col">Title</th>
             <th class="text-center" scope="col">Published</th>
         </thead>
         <tbody class="table-group-divider">
             <?php foreach ($posts as $post) : ?>
                 <tr>
-                    <td class="text-center">
+                    <td>
                         <a href="post.php?id=<?php echo $post['id']; ?>"><?php echo htmlspecialchars($post['title']); ?></a>
                     </td>
 

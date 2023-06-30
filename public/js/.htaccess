@@ -1,6 +1,3 @@
 AddType text/javascript .js
-Deny from all
 
-<Files "script.js">
-Allow from all
-</Files>
+Options -Indexes

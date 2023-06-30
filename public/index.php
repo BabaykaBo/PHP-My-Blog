@@ -14,7 +14,7 @@ $posts = Post::getPage($conn, $paginator->limited, $paginator->offset, true);
     <p>No posts found.</p>
 <?php else : ?>
 
-    <ul>
+    <ul id='index'>
         <?php foreach ($posts as $post) : ?>
             <li>
                 <h2><a href="post.php?id=<?php echo $post['id']; ?>"><?php echo htmlspecialchars($post['title']); ?></a></h2>

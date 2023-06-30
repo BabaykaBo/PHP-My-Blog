@@ -15,7 +15,7 @@
                 placeholder="Post content..."><?php echo htmlspecialchars($post->content); ?></textarea></label>
     </div>
     <div class="mb-3">
-        <label class="form-label">Publication date: <input class="form-control" type="datetime" name="published_at"
+        <label class="form-label">Publication date: <input class="form-control" id="published_at" name="published_at"
                 value="<?php echo htmlspecialchars($post->published_at); ?>"
                 placeholder="Example: 2022-12-23 12:12:12"></label>
     </div>

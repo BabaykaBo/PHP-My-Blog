@@ -9,6 +9,8 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
 
+<script  type="text/javascript" src="/js/jquery.datetimepicker.full.min.js"></script>
+
 <script type="text/javascript" src="/js/script.js"></script>
 
 </html>
