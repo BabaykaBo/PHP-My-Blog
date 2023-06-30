@@ -1,17 +1,17 @@
 <nav>
-    <ul>
-        <li>
+    <ul class="pagination">
+        <li class="page-item">
             <?php if ($paginator->previous) : ?>
-                <a href="?page=<?php echo $paginator->previous; ?>">Previous Page</a>
+                <a class="page-link" href="?page=<?php echo $paginator->previous; ?>">Previous Page</a>
             <?php else : ?>
-                Previous Page
+                <span class="page-link  disabled">Previous Page</span>
             <?php endif; ?>
         </li>
-        <li>
+        <li class="page-item">
             <?php if ($paginator->next) : ?>
-                <a href="?page=<?php echo $paginator->next; ?>">Next Page</a>
+                <a class="page-link" href="?page=<?php echo $paginator->next; ?>">Next Page</a>
             <?php else : ?>
-                Next Page
+                <span class="page-link  disabled">Next Page</span>
             <?php endif; ?>
         </li>
     </ul>

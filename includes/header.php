@@ -1,33 +1,35 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <html>
 
 <head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Blog</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
 </head>
 
 <body>
-    <header>
-        <h1>My Blog</h1>
-        
-        <ul>
-                <li><a href="/index.php">Home</a></li>
-            <?php if (Auth::isLoggedIn()): ?>
 
-                <li><a href="/admin/">Admin</a></li>
-                <li><a href="/admin/new-post.php">Add Post</a></li>
-                <li><a href="/logout.php">Log Out</a></li>
+    <div class="container">
 
-            <?php else: ?>
+        <header>
+            <h1>My Blog</h1>
 
-                <li><a href="/login.php">Log In</a></li>
-                
-            <?php endif; ?>
-        </ul>
+            <ul class="nav">
+                <li class="nav-item"><a class="nav-link" href="/index.php">Home</a></li>
+                <?php if (Auth::isLoggedIn()) : ?>
 
-    </header>
-    <main>
+                    <li class="nav-item"><a class="nav-link" href="/admin/">Admin</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/admin/new-post.php">Add Post</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/logout.php">Log Out</a></li>
+
+                <?php else : ?>
+
+                    <li class="nav-item"><a class="nav-link" href="/login.php">Log In</a></li>
+
+                <?php endif; ?>
+            </ul>
+
+        </header>
+        <main>

@@ -15,24 +15,24 @@ $posts = Post::getPage($conn, $paginator->limited, $paginator->offset);
 <?php if (empty($posts)) : ?>
     <p>No posts found.</p>
 <?php else : ?>
-    <table>
-        <thead>
-            <th>Title</th>
-            <th>Published</th>
+    <table class="table table-striped">
+        <thead >
+            <th class="text-center" scope="col">Title</th>
+            <th class="text-center" scope="col">Published</th>
         </thead>
-        <tbody>
+        <tbody class="table-group-divider">
             <?php foreach ($posts as $post) : ?>
                 <tr>
-                    <td>
+                    <td class="text-center">
                         <a href="post.php?id=<?php echo $post['id']; ?>"><?php echo htmlspecialchars($post['title']); ?></a>
                     </td>
 
-                    <td>
+                    <td class="text-center">
                         <?php if ($post['published_at']) : ?>
                             <time><?php echo htmlspecialchars($post['published_at']); ?></time>
                         <?php else : ?>
                             Unpublished
-                            <button id="publish" data-id="<?php echo $post['id']; ?>">Publish</button>
+                            <button class="publish" data-id="<?php echo $post['id']; ?>">Publish</button>
                         <?php endif; ?>
                     </td>
                 </tr>

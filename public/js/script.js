@@ -38,7 +38,7 @@ $("#post-form").validate({
 /**
  * Publish post
  */
-$("#publish").on("click", function(e) {
+$("button.publish").on("click", function(e) {
     var id = $(this).data('id');
     var button = $(this);
     

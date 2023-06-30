@@ -29,10 +29,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <?php endif; ?>
 
 <form method="post">
-    <label><input type="text" name="username" value="<?php echo htmlspecialchars($user->username); ?>"
-            placeholder="Type username..."></label>
-    <label><input type="password" name="password" placeholder="Type password..."></label>
-    <button>Submit</button>
+    <div class="form-group">
+        <label class="form-label">Username
+            <input class="form-control" type="text" name="username" value="<?php echo htmlspecialchars($user->username); ?>"
+                placeholder="Type username...">
+            </label>
+    </div>
+
+    <div class="form-group">
+        <label class="form-label">Password
+            <input class="form-control" type="password" name="password" placeholder="Type password...">
+        </label>
+    </div>
+    
+        <button class="btn btn-primary">Submit</button>
 </form>
 
 <?php require '../includes/footer.php' ?>
