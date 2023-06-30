@@ -29,7 +29,7 @@ $posts = Post::getPage($conn, $paginator->limited, $paginator->offset);
 
                     <td>
                         <?php if ($post['published_at']) : ?>
-                            <time><?php echo $post['published_at']; ?></time>
+                            <time><?php echo htmlspecialchars($post['published_at']); ?></time>
                         <?php else : ?>
                             Unpublished
                             <button id="publish" data-id="<?php echo $post['id']; ?>">Publish</button>

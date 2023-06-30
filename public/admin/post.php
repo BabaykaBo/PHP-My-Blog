@@ -23,16 +23,16 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
             <p>
                 Category:
                 <?php foreach ($post as $p) : ?>
-                    <?php echo $p['category_name'] . ';'; ?>
+                    <?php echo htmlspecialchars($p['category_name']) . ';'; ?>
                 <?php endforeach; ?>
             </p>
 
         <?php endif; ?>
 
-        <h2><?php echo $post[0]['title']; ?></h2>
+        <h2><?php echo htmlspecialchars($post[0]['title']); ?></h2>
 
         <?php if ($post[0]['published_at']) : ?>
-            <time><?php echo $post[0]['published_at']; ?></time>
+            <time><?php echo htmlspecialchars($post[0]['published_at']); ?></time>
         <?php else : ?>
             Unpublished
         <?php endif; ?>
@@ -42,7 +42,7 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
             <p><a class="delete" href="delete-post-image.php?id=<?php echo  $_GET['id'] ?>">Delete Post Image</a></p>
         <?php endif; ?>
 
-        <p><?php echo $post[0]['content']; ?></p>
+        <p><?php echo htmlspecialchars($post[0]['content']); ?></p>
 
     </article>
 

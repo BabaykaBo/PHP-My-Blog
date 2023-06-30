@@ -28,7 +28,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <?php require '../../includes/header.php'; ?>
 <h2>Delete Post</h2>
-<p>Do you want to delete the post "<?php echo $post->title; ?>"?</p>
+<p>Do you want to delete the post "<?php echo htmlspecialchars($post->title); ?>"?</p>
 <p>
 <form method="post">
     <button>Yes</button>

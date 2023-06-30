@@ -28,7 +28,7 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
 
     <?php endif; ?>
 
-    <h2><?php echo $post[0]['title']; ?></h2>
+    <h2><?php echo htmlspecialchars($post[0]['title']); ?></h2>
 
     <time datetime="<?php echo $post[0]['published_at']; ?>"><?php
         $datetime = new DateTime($post[0]["published_at"]);
@@ -44,7 +44,7 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
 
     <?php endif; ?>
 
-    <p><?php echo $post[0]['content']; ?></p>
+    <p><?php echo htmlspecialchars($post[0]['content']); ?></p>
 
 </article>
 

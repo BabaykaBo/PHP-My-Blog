@@ -25,10 +25,10 @@
 
         <?php foreach ($categories as $category) : ?>
         <div>
-            <input type="checkbox" id='category<?php echo $category['id'] ?>' name="category[]"
+            <input type="checkbox" id='category<?php echo $category['id']; ?>' name="category[]"
                 value="<?php echo $category['id'] ?>"
                 <?php if (in_array($category['id'], $category_ids)):?>checked<?php endif; ?>>
-            <label for='category<?php echo $category['id'] ?>'><?php echo htmlspecialchars($category['name']) ?></label>
+            <label for='category<?php echo $category['id'] ?>'><?php echo htmlspecialchars($category['name']); ?></label>
         </div>
         <?php endforeach; ?>
     </fieldset>
