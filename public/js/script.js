@@ -1,3 +1,6 @@
+/**
+ * Delete post
+ */
 $("a.delete").on("click", function(e){
     e.preventDefault();
 
@@ -9,10 +12,11 @@ $("a.delete").on("click", function(e){
         frm.appendTo("body");
 
         frm.submit();
-    }
+    }});
 
-});
-
+/**
+ * Validate post-form
+ */
 $.validator.addMethod("dateTime", function(value){
     return (value == "") || ! isNaN(Date.parse(value));
 }, "Must be a valid date and time!");
@@ -29,4 +33,24 @@ $("#post-form").validate({
             dateTime: true
         },
     }
-})
+});
+
+/**
+ * Publish post
+ */
+$("#publish").on("click", function(e) {
+    var id = $(this).data('id');
+    var button = $(this);
+    
+    $.ajax({
+
+        url: "/admin/publish.php",
+        type: "POST",
+        data: {id: id},
+
+    }).done(function(data) {
+
+        button.parent().html(data);
+
+    });
+});

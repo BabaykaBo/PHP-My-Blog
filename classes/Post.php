@@ -376,4 +376,28 @@ class Post
 
         return $stmt->execute();
     }
+
+    /**
+     * Publish the post and set the published_at field to the current date and time
+     * 
+     * @param object $conn Connection to DB
+     * 
+     * @return mixed The published date and time if successful, otherwise null
+     */
+    public function publish(object $conn): mixed {
+        $sql = "UPDATE post
+                SET published_at = :published_at
+                WHERE id = :id;";
+        
+        $stmt = $conn->prepare($sql);
+
+        $stmt->bindValue(':id', $this->id, PDO::PARAM_INT);
+
+        $published_at = date("Y-m-d H:i:s");
+        $stmt->bindValue(':published_at', $published_at, PDO::PARAM_STR);
+
+        if ($stmt->execute()) {
+            return $published_at;
+        }
+    }
 }
