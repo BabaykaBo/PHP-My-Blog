@@ -20,6 +20,7 @@
 
             <ul class="nav">
                 <li class="nav-item"><a class="nav-link" href="/index.php">Home</a></li>
+
                 <?php if (Auth::isLoggedIn()) : ?>
 
                     <li class="nav-item"><a class="nav-link" href="/admin/">Admin</a></li>
