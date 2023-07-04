@@ -116,6 +116,7 @@ sudo chown -R :'www-data' public/uploading/
 ```commandline
 http://'your_domain_or_IP'
 ```
+9. Optional: install and config phpDocumentor.
 ## Features:
 
 ### User authentication system
