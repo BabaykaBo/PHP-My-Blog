@@ -36,11 +36,11 @@ class Paginator
      * 
      * @param int|string $page Page number
      * @param int $records_per_page Number of records per page
-     * @param int $total_records Total number of records
+     * @param mixed $total_records Total number of records
      * 
      * @return void
      */
-    public function __construct(int|string $page, int $records_per_page, int $total_records)
+    public function __construct(mixed $page, int $records_per_page, int $total_records)
     {
         $this->limited = $records_per_page;
 
